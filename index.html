@@ -39,13 +39,7 @@
         </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- CUSTOM CURSOR -->
-    <!-- ============================================ -->
-    <div class="cursor" id="cursor">
-        <div class="cursor__dot"></div>
-        <div class="cursor__outline"></div>
-    </div>
+
 
     <!-- ============================================ -->
     <!-- NAVIGATION -->
@@ -91,19 +85,25 @@
             <!-- HERO SECTION -->
             <!-- ======================================== -->
             <section class="hero" id="hero">
-                <!-- Video slot (hidden for now, ready for future AI video) -->
-                <video 
-                    class="hero__video" 
-                    autoplay 
-                    muted 
-                    loop 
-                    playsinline
-                    preload="auto"
-                    poster="assets/nana.png"
-                    style="display:none;">
-                    <source src="assets/hero.mp4" type="video/mp4">
-                    <source src="assets/hero.webm" type="video/webm">
-                </video>
+                <!-- Hero background image (responsive WebP) -->
+                <picture class="hero__bg-picture">
+                    <source
+                        type="image/webp"
+                        srcset="assets/hero-bg-768.webp 768w,
+                               assets/hero-bg-1280.webp 1280w,
+                               assets/hero-bg-1920.webp 1920w,
+                               assets/hero-bg-2560.webp 2560w,
+                               assets/hero-bg-3840.webp 3840w"
+                        sizes="100vw">
+                    <img
+                        src="assets/hero-bg-1920.jpg"
+                        alt=""
+                        class="hero__bg-img"
+                        loading="eager"
+                        decoding="async">
+                </picture>
+                <!-- Overlay + bottom fade -->
+                <div class="hero__overlay"></div>
                 <div class="hero__content">
                     <div class="hero__text">
                         <p class="hero__tag">POWERED BY APEBOND</p>
@@ -379,7 +379,7 @@
     <!-- App Scripts -->
     <script src="js/three-scene.js"></script>
     <script src="js/chroma-key.js"></script>
-    <script src="js/cursor.js"></script>
+
     <script src="js/animations.js"></script>
     <script src="js/main.js"></script>
 </body>

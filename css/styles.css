@@ -50,7 +50,7 @@
     --font-body: 'Poppins', sans-serif;
 
     /* Spacing */
-    --section-pad: clamp(80px, 12vh, 160px);
+    --section-pad: clamp(48px, 7vh, 90px);
     --container-max: 1200px;
     --container-pad: clamp(20px, 4vw, 60px);
 
@@ -86,7 +86,6 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
-    cursor: none;
 }
 
 a {
@@ -103,7 +102,6 @@ img {
 button {
     border: none;
     background: none;
-    cursor: none;
     font-family: inherit;
     color: inherit;
 }
@@ -124,7 +122,7 @@ button {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -220,46 +218,7 @@ button {
     50% { opacity: 1; }
 }
 
-/* ============================================
-   CUSTOM CURSOR
-   ============================================ */
-.cursor {
-    pointer-events: none;
-    position: fixed;
-    z-index: 10000;
-    mix-blend-mode: difference;
-}
 
-.cursor__dot {
-    width: 8px;
-    height: 8px;
-    background: var(--text-primary);
-    border-radius: 50%;
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    transition: transform 0.1s;
-}
-
-.cursor__outline {
-    width: 40px;
-    height: 40px;
-    border: 1.5px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    transition: transform 0.3s var(--ease-out), border-color 0.3s;
-}
-
-.cursor.is-hovering .cursor__dot {
-    transform: scale(2.5);
-}
-
-.cursor.is-hovering .cursor__outline {
-    transform: scale(1.6);
-    border-color: var(--accent-cyan);
-}
 
 /* ============================================
    NAVIGATION
@@ -451,17 +410,50 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     z-index: 1;
 }
 
-.hero__video {
+.hero__bg-picture {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
     z-index: 0;
+    /* Fade image to transparent at bottom */
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 95%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 95%);
+}
+
+.hero__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    /* Same mask so overlay fades with the image */
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 95%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 95%);
+    background:
+        /* General darkening */
+        linear-gradient(to bottom,
+            rgba(10, 10, 15, 0.4) 0%,
+            rgba(10, 10, 15, 0.2) 30%,
+            rgba(10, 10, 15, 0.35) 60%,
+            rgba(10, 10, 15, 0.5) 80%,
+            rgba(10, 10, 15, 0.6) 100%
+        ),
+        /* Subtle purple/cyan tints */
+        radial-gradient(ellipse at 30% 30%, rgba(155, 77, 255, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 60%, rgba(0, 240, 255, 0.05) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 .hero__content {
@@ -709,7 +701,7 @@ button {
 }
 
 .about__title {
-    margin-bottom: 48px;
+    margin-bottom: 32px;
 }
 
 .about__content {
@@ -819,7 +811,7 @@ button {
 
 .perks__header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 36px;
 }
 
 .perks__header .about__badge {
@@ -959,30 +951,30 @@ button {
 
 .coming-soon__label {
     font-family: var(--font-heading);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 600;
     letter-spacing: 0.25em;
     color: var(--accent-gold);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .coming-soon__title {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
     font-weight: 900;
     line-height: 1.05;
     margin-bottom: 4px;
 }
 
 .coming-soon__title--sub {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
 }
 
 .coming-soon__line {
-    width: 60px;
+    width: 50px;
     height: 2px;
     background: var(--gradient-main);
-    margin: 0 auto 24px;
+    margin: 0 auto 16px;
 }
 
 .coming-soon__desc {
@@ -1254,11 +1246,5 @@ button {
         filter: drop-shadow(0 0 20px rgba(155, 77, 255, 0.2));
     }
 
-    body {
-        cursor: auto;
-    }
 
-    .cursor {
-        display: none !important;
-    }
 }

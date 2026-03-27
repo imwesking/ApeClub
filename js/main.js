@@ -164,7 +164,7 @@
         ApeScene.init();
         ApeChromaKey.init();
         ApeAnimations.init();
-        ApeCursor.init();
+        // Cursor removed — using default browser cursor
 
         // Glitch text (needs ScrollTrigger to be ready)
         initGlitchText();
