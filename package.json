@@ -1,5 +1,10 @@
 {
+  "name": "apeclub",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npx serve . -l ${PORT:-3000} --no-clipboard"
+  },
   "dependencies": {
-    "sharp": "^0.34.5"
+    "serve": "^14.2.0"
   }
 }
