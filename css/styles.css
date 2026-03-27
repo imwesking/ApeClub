@@ -534,6 +534,15 @@ button {
     opacity: 0;
 }
 
+.hero__nana-video-src {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
 .hero__nana-glow {
     position: absolute;
     inset: -20%;
