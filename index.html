@@ -116,11 +116,8 @@
                         <p class="hero__subtitle" id="heroSubtitle">The ultimate membership combining True-Yield, Governance, Ape2Earn &amp; exclusive perks.</p>
                         <div class="hero__buttons">
                             <a href="#join" class="btn btn--primary">
-                                <span class="btn__text">Join the Club</span>
+                                <span class="btn__text">Connect</span>
                                 <span class="btn__glow"></span>
-                            </a>
-                            <a href="#about" class="btn btn--ghost">
-                                <span class="btn__text">Learn More</span>
                             </a>
                         </div>
                     </div>
@@ -196,48 +193,49 @@
                     </div>
 
                     <div class="perks__grid">
-                        <!-- True-Yield -->
-                        <div class="perk-card" data-perk="true-yield">
+                        <!-- Welcome Bonus -->
+                        <div class="perk-card" data-perk="welcome-bonus">
                             <div class="perk-card__glow"></div>
                             <div class="perk-card__inner">
                                 <div class="perk-card__icon">
                                     <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="32" cy="32" r="28" stroke="url(#grad1)" stroke-width="2"/>
-                                        <path d="M20 38L28 26L36 32L44 20" stroke="url(#grad1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="32" cy="32" r="28" stroke="url(#gradWB)" stroke-width="2"/>
+                                        <path d="M24 36L30 28L34 32L40 24" stroke="url(#gradWB)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 42H42" stroke="url(#gradWB)" stroke-width="2" stroke-linecap="round"/>
+                                        <circle cx="40" cy="24" r="3" fill="#ffd700"/>
+                                        <defs>
+                                            <linearGradient id="gradWB" x1="0" y1="0" x2="64" y2="64">
+                                                <stop stop-color="#ffd700"/>
+                                                <stop offset="1" stop-color="#ff2d95"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <h3 class="perk-card__title">Welcome Bonus</h3>
+                                <p class="perk-card__desc">Get rewarded from your very first day as a member. Your journey into ApeClub starts with a bonus.</p>
+                                <div class="perk-card__tag">ACTIVE</div>
+                            </div>
+                        </div>
+
+                        <!-- Staking Benefits -->
+                        <div class="perk-card" data-perk="staking-benefits">
+                            <div class="perk-card__glow"></div>
+                            <div class="perk-card__inner">
+                                <div class="perk-card__icon">
+                                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="32" cy="32" r="28" stroke="url(#gradSB)" stroke-width="2"/>
+                                        <path d="M20 38L28 26L36 32L44 20" stroke="url(#gradSB)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         <circle cx="44" cy="20" r="3" fill="#00f0ff"/>
                                         <defs>
-                                            <linearGradient id="grad1" x1="0" y1="0" x2="64" y2="64">
+                                            <linearGradient id="gradSB" x1="0" y1="0" x2="64" y2="64">
                                                 <stop stop-color="#9b4dff"/>
                                                 <stop offset="1" stop-color="#00f0ff"/>
                                             </linearGradient>
                                         </defs>
                                     </svg>
                                 </div>
-                                <h3 class="perk-card__title">True-Yield</h3>
-                                <p class="perk-card__desc">Earn sustainable, real yields generated from actual protocol revenue — no inflation, no gimmicks.</p>
-                                <div class="perk-card__tag">ACTIVE</div>
-                            </div>
-                        </div>
-
-                        <!-- Governance -->
-                        <div class="perk-card" data-perk="governance">
-                            <div class="perk-card__glow"></div>
-                            <div class="perk-card__inner">
-                                <div class="perk-card__icon">
-                                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="10" y="28" width="44" height="26" rx="4" stroke="url(#grad2)" stroke-width="2"/>
-                                        <path d="M32 10L44 28H20L32 10Z" stroke="url(#grad2)" stroke-width="2" stroke-linejoin="round"/>
-                                        <circle cx="32" cy="40" r="5" stroke="url(#grad2)" stroke-width="2"/>
-                                        <defs>
-                                            <linearGradient id="grad2" x1="0" y1="0" x2="64" y2="64">
-                                                <stop stop-color="#ff2d95"/>
-                                                <stop offset="1" stop-color="#9b4dff"/>
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
-                                </div>
-                                <h3 class="perk-card__title">Governance</h3>
-                                <p class="perk-card__desc">Shape the future of ApeBond. Vote on proposals, influence treasury decisions, and steer the protocol.</p>
+                                <h3 class="perk-card__title">Staking Benefits</h3>
+                                <p class="perk-card__desc">True Yield in USDT, extra discount on Bonds, and Governance power — all from staking your membership.</p>
                                 <div class="perk-card__tag">ACTIVE</div>
                             </div>
                         </div>
@@ -262,6 +260,57 @@
                                 </div>
                                 <h3 class="perk-card__title">Ape2Earn</h3>
                                 <p class="perk-card__desc">Complete quests, engage with the ecosystem, and earn rewards just for being an active ApeClub member.</p>
+                                <div class="perk-card__tag">ACTIVE</div>
+                            </div>
+                        </div>
+
+                        <!-- Social Boost -->
+                        <div class="perk-card" data-perk="social-boost">
+                            <div class="perk-card__glow"></div>
+                            <div class="perk-card__inner">
+                                <div class="perk-card__icon">
+                                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="32" cy="32" r="28" stroke="url(#gradSO)" stroke-width="2"/>
+                                        <path d="M20 34L28 26L36 30L44 22" stroke="url(#gradSO)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M38 22H44V28" stroke="url(#gradSO)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="24" cy="42" r="4" stroke="url(#gradSO)" stroke-width="2"/>
+                                        <circle cx="40" cy="42" r="4" stroke="url(#gradSO)" stroke-width="2"/>
+                                        <path d="M28 42H36" stroke="url(#gradSO)" stroke-width="2" stroke-linecap="round"/>
+                                        <defs>
+                                            <linearGradient id="gradSO" x1="0" y1="0" x2="64" y2="64">
+                                                <stop stop-color="#ff2d95"/>
+                                                <stop offset="1" stop-color="#9b4dff"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <h3 class="perk-card__title">Social Boost</h3>
+                                <p class="perk-card__desc">Gain points that translate into rewards by engaging on social media. The more you engage, the more you earn!</p>
+                                <div class="perk-card__tag">ACTIVE</div>
+                            </div>
+                        </div>
+
+                        <!-- Loyalty Program -->
+                        <div class="perk-card" data-perk="loyalty-program">
+                            <div class="perk-card__glow"></div>
+                            <div class="perk-card__inner">
+                                <div class="perk-card__icon">
+                                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="32" cy="32" r="28" stroke="url(#gradLP)" stroke-width="2"/>
+                                        <rect x="22" y="24" width="20" height="16" rx="3" stroke="url(#gradLP)" stroke-width="2"/>
+                                        <path d="M26 30H38M26 34H34" stroke="url(#gradLP)" stroke-width="2" stroke-linecap="round"/>
+                                        <circle cx="44" cy="20" r="6" fill="none" stroke="url(#gradLP)" stroke-width="2"/>
+                                        <path d="M44 17V20H47" stroke="url(#gradLP)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <defs>
+                                            <linearGradient id="gradLP" x1="0" y1="0" x2="64" y2="64">
+                                                <stop stop-color="#00f0ff"/>
+                                                <stop offset="1" stop-color="#ffd700"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <h3 class="perk-card__title">Loyalty Program</h3>
+                                <p class="perk-card__desc">Every 1,000 USDT spent gets you a lottery ticket for an AirBond. Stay loyal, win big.</p>
                                 <div class="perk-card__tag">ACTIVE</div>
                             </div>
                         </div>

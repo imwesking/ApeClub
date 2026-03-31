@@ -24,7 +24,7 @@ const ApeScene = (() => {
 
         // Scene
         scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x0a0a0f, 0.06);
+        scene.fog = new THREE.FogExp2(0x170C20, 0.06);
 
         // Camera
         camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
