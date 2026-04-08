@@ -2,21 +2,22 @@
    APECLUB — CHROMA KEY (Green Screen Removal)
    Renders video to canvas with green pixels
    replaced by transparency in real-time.
+   Uses requestVideoFrameCallback when available
+   to avoid processing duplicate frames, and
+   renders at half resolution for performance.
    ============================================ */
 
 const ApeChromaKey = (() => {
     let video, canvas, ctx;
-    let animFrameId = null;
     let isRunning = false;
+    let rvfcHandle = null;
+    let rafHandle = null;
+    const supportsRVFC = 'requestVideoFrameCallback' in HTMLVideoElement.prototype;
 
     // Chroma key thresholds — tune if needed
-    const GREEN_MIN_R = 0;
-    const GREEN_MAX_R = 130;
     const GREEN_MIN_G = 80;
-    const GREEN_MAX_G = 255;
-    const GREEN_MIN_B = 0;
+    const GREEN_MAX_R = 130;
     const GREEN_MAX_B = 130;
-    // How much greener G must be vs R and B
     const GREEN_DOMINANCE = 1.2;
 
     function init() {
@@ -25,19 +26,14 @@ const ApeChromaKey = (() => {
         if (!video || !canvas) return;
 
         ctx = canvas.getContext('2d', { willReadFrequently: true });
-
-        // Ensure video starts from beginning
         video.currentTime = 0;
 
-        // Clear canvas until video is ready
         video.addEventListener('loadeddata', () => {
             resizeCanvas();
-            // Seek to 0 and draw the first frame immediately
             video.currentTime = 0;
         });
 
         video.addEventListener('seeked', function onFirstSeek() {
-            // Process the very first frame before playback
             processFrame();
             video.removeEventListener('seeked', onFirstSeek);
         });
@@ -47,7 +43,6 @@ const ApeChromaKey = (() => {
             start();
         });
 
-        // If video is already loaded and playing (cached)
         if (video.readyState >= 2) {
             video.currentTime = 0;
             resizeCanvas();
@@ -56,60 +51,72 @@ const ApeChromaKey = (() => {
     }
 
     function resizeCanvas() {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        // Half resolution — processed at 50%, CSS scales up visually
+        canvas.width = Math.floor(video.videoWidth / 2);
+        canvas.height = Math.floor(video.videoHeight / 2);
     }
 
     function start() {
         if (isRunning) return;
         isRunning = true;
-        processFrame();
+        scheduleFrame();
+    }
+
+    function scheduleFrame() {
+        if (!isRunning) return;
+        if (supportsRVFC) {
+            rvfcHandle = video.requestVideoFrameCallback(processFrame);
+        } else {
+            rafHandle = requestAnimationFrame(processFrame);
+        }
     }
 
     function processFrame() {
         if (!isRunning) return;
-        animFrameId = requestAnimationFrame(processFrame);
 
-        if (video.paused || video.ended) return;
+        if (!video.paused && !video.ended) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = frame.data;
+            const len = data.length;
 
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = frame.data;
-        const len = data.length;
+            for (let i = 0; i < len; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
 
-        for (let i = 0; i < len; i += 4) {
-            const r = data[i];
-            const g = data[i + 1];
-            const b = data[i + 2];
-
-            // Check if this pixel is "green screen"
-            if (
-                g > GREEN_MIN_G &&
-                g > r * GREEN_DOMINANCE &&
-                g > b * GREEN_DOMINANCE &&
-                r < GREEN_MAX_R &&
-                b < GREEN_MAX_B
-            ) {
-                // Make fully transparent
-                data[i + 3] = 0;
-            } else {
-                // Edge softening: partially green pixels get partial transparency
-                const greenRatio = g / (r + g + b + 1);
-                if (greenRatio > 0.4 && g > 60) {
-                    const alpha = Math.max(0, 1 - (greenRatio - 0.4) * 4);
-                    data[i + 3] = Math.round(alpha * 255);
+                if (
+                    g > GREEN_MIN_G &&
+                    g > r * GREEN_DOMINANCE &&
+                    g > b * GREEN_DOMINANCE &&
+                    r < GREEN_MAX_R &&
+                    b < GREEN_MAX_B
+                ) {
+                    data[i + 3] = 0;
+                } else {
+                    const greenRatio = g / (r + g + b + 1);
+                    if (greenRatio > 0.4 && g > 60) {
+                        const alpha = Math.max(0, 1 - (greenRatio - 0.4) * 4);
+                        data[i + 3] = Math.round(alpha * 255);
+                    }
                 }
             }
+
+            ctx.putImageData(frame, 0, 0);
         }
 
-        ctx.putImageData(frame, 0, 0);
+        scheduleFrame();
     }
 
     function destroy() {
         isRunning = false;
-        if (animFrameId) {
-            cancelAnimationFrame(animFrameId);
-            animFrameId = null;
+        if (supportsRVFC && rvfcHandle !== null) {
+            video.cancelVideoFrameCallback(rvfcHandle);
+            rvfcHandle = null;
+        }
+        if (rafHandle !== null) {
+            cancelAnimationFrame(rafHandle);
+            rafHandle = null;
         }
     }
 

@@ -32,10 +32,10 @@
     <!-- ============================================ -->
     <div id="loader" class="loader" aria-hidden="true">
         <div class="loader__inner">
-            <div class="loader__ring"></div>
-            <div class="loader__ring"></div>
-            <div class="loader__ring"></div>
-            <span class="loader__text">APECLUB</span>
+            <img src="assets/APECLUB logo.svg" alt="" class="loader__logo" aria-hidden="true">
+            <div class="loader__bar">
+                <div class="loader__bar-fill"></div>
+            </div>
         </div>
     </div>
 
@@ -53,7 +53,7 @@
             <a href="#perks" class="nav__link">Perks</a>
             <a href="#join" class="nav__link nav__link--cta">Join Club</a>
         </div>
-        <button class="nav__hamburger" id="navHamburger" aria-label="Toggle menu">
+        <button class="nav__hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
             <span></span>
             <span></span>
             <span></span>
@@ -61,7 +61,7 @@
     </nav>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
         <a href="#about" class="mobile-menu__link">About</a>
         <a href="#perks" class="mobile-menu__link">Perks</a>
         <a href="#join" class="mobile-menu__link mobile-menu__link--cta">Join Club</a>
@@ -70,7 +70,7 @@
     <!-- ============================================ -->
     <!-- THREE.JS CANVAS (Particle Background) -->
     <!-- ============================================ -->
-    <canvas id="three-canvas"></canvas>
+    <canvas id="three-canvas" aria-hidden="true"></canvas>
 
     <!-- Global overlay (dims Three.js particles across the whole page) -->
     <div class="global-overlay"></div>
@@ -113,10 +113,10 @@
                                 <span class="gradient-text">APECLUB</span>
                             </span>
                         </h1>
-                        <p class="hero__subtitle" id="heroSubtitle">The ultimate membership combining True-Yield, Governance, Ape2Earn &amp; exclusive perks.</p>
+                        <p class="hero__subtitle" id="heroSubtitle">Earn real yield, shape the protocol, and get rewarded just for being a member. ApeClub makes DeFi work for you — no experience needed.</p>
                         <div class="hero__buttons">
                             <a href="#join" class="btn btn--primary">
-                                <span class="btn__text">Connect</span>
+                                <span class="btn__text">Join the Club</span>
                                 <span class="btn__glow"></span>
                             </a>
                         </div>
@@ -129,7 +129,7 @@
                             autoplay muted loop playsinline
                             class="hero__nana-video-src">
                         </video>
-                        <canvas id="nanaCanvas" class="hero__nana-canvas"></canvas>
+                        <canvas id="nanaCanvas" class="hero__nana-canvas" role="img" aria-label="NaNa, the ApeClub mascot"></canvas>
                     </div>
                 </div>
 
@@ -149,16 +149,16 @@
                         <span>DISCOVER</span>
                     </div>
                     <h2 class="about__title section-title">
-                        <span class="word">What</span> 
-                        <span class="word">is</span> 
-                        <span class="word gradient-text">ApeClub</span>
+                        <span class="word">What</span>
+                        <span class="word">is</span>
+                        <span class="word accent-text">ApeClub</span>
                         <span class="word">?</span>
                     </h2>
                     <div class="about__content">
                         <div class="about__text">
                             <p class="about__paragraph">ApeClub is the <strong>exclusive membership ecosystem</strong> built on top of ApeBond — unifying the most powerful DeFi perks into a single, rewarding experience.</p>
-                            <p class="about__paragraph">Hold your membership and unlock access to <strong>True-Yield</strong> sustainable returns, <strong>on-chain Governance</strong> voting, the <strong>Ape2Earn</strong> reward program, and a growing suite of club-exclusive benefits.</p>
-                            <p class="about__paragraph">One club. All perks. <span class="gradient-text">Unlimited potential.</span></p>
+                            <p class="about__paragraph">Hold your membership and unlock <strong>True-Yield</strong> — real USDT returns on your stake, <strong>on-chain Governance</strong> — a vote on how the protocol evolves, the <strong>Ape2Earn</strong> program — rewards for staying active, and a growing suite of club-exclusive benefits.</p>
+                            <p class="about__paragraph">One club. All perks. <span class="accent-text">Unlimited potential.</span></p>
                         </div>
                         <div class="about__visual">
                             <div class="about__card-3d">
@@ -185,14 +185,38 @@
                             <span>MEMBERSHIP PERKS</span>
                         </div>
                         <h2 class="section-title">
-                            <span class="word">Unlock</span> 
-                            <span class="word">Your</span> 
-                            <span class="word gradient-text">Perks</span>
+                            <span class="word">Unlock</span>
+                            <span class="word">Your</span>
+                            <span class="word accent-text">Perks</span>
                         </h2>
                         <p class="perks__subtitle">Everything you get as an ApeClub member — and we're just getting started.</p>
                     </div>
 
                     <div class="perks__grid">
+                        <!-- Staking Benefits — Featured -->
+                        <div class="perk-card perk-card--featured" data-perk="staking-benefits">
+                            <div class="perk-card__glow"></div>
+                            <div class="perk-card__inner">
+                                <div class="perk-card__featured-label">CORE PERK</div>
+                                <div class="perk-card__icon">
+                                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="32" cy="32" r="28" stroke="url(#gradSB)" stroke-width="2"/>
+                                        <path d="M20 38L28 26L36 32L44 20" stroke="url(#gradSB)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="44" cy="20" r="3" fill="#00f0ff"/>
+                                        <defs>
+                                            <linearGradient id="gradSB" x1="0" y1="0" x2="64" y2="64">
+                                                <stop stop-color="#9b4dff"/>
+                                                <stop offset="1" stop-color="#00f0ff"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <h3 class="perk-card__title">Staking Benefits</h3>
+                                <p class="perk-card__desc">Stake your membership to earn real USDT returns — not inflated tokens — vote on how the protocol evolves, and get discounts on Bond purchases. This is yield that actually means something.</p>
+                                <div class="perk-card__tag">ACTIVE</div>
+                            </div>
+                        </div>
+
                         <!-- Welcome Bonus -->
                         <div class="perk-card" data-perk="welcome-bonus">
                             <div class="perk-card__glow"></div>
@@ -212,30 +236,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="perk-card__title">Welcome Bonus</h3>
-                                <p class="perk-card__desc">Get rewarded from your very first day as a member. Your journey into ApeClub starts with a bonus.</p>
-                                <div class="perk-card__tag">ACTIVE</div>
-                            </div>
-                        </div>
-
-                        <!-- Staking Benefits -->
-                        <div class="perk-card" data-perk="staking-benefits">
-                            <div class="perk-card__glow"></div>
-                            <div class="perk-card__inner">
-                                <div class="perk-card__icon">
-                                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="32" cy="32" r="28" stroke="url(#gradSB)" stroke-width="2"/>
-                                        <path d="M20 38L28 26L36 32L44 20" stroke="url(#gradSB)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <circle cx="44" cy="20" r="3" fill="#00f0ff"/>
-                                        <defs>
-                                            <linearGradient id="gradSB" x1="0" y1="0" x2="64" y2="64">
-                                                <stop stop-color="#9b4dff"/>
-                                                <stop offset="1" stop-color="#00f0ff"/>
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
-                                </div>
-                                <h3 class="perk-card__title">Staking Benefits</h3>
-                                <p class="perk-card__desc">True Yield in USDT, extra discount on Bonds, and Governance power — all from staking your membership.</p>
+                                <p class="perk-card__desc">A reward is waiting from day one — no waiting period, no conditions. Just join and start earning immediately.</p>
                                 <div class="perk-card__tag">ACTIVE</div>
                             </div>
                         </div>
@@ -259,7 +260,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="perk-card__title">Ape2Earn</h3>
-                                <p class="perk-card__desc">Complete quests, engage with the ecosystem, and earn rewards just for being an active ApeClub member.</p>
+                                <p class="perk-card__desc">Complete quests, participate in the community, and earn rewards for being active. The more you show up, the more you make.</p>
                                 <div class="perk-card__tag">ACTIVE</div>
                             </div>
                         </div>
@@ -285,7 +286,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="perk-card__title">Social Boost</h3>
-                                <p class="perk-card__desc">Gain points that translate into rewards by engaging on social media. The more you engage, the more you earn!</p>
+                                <p class="perk-card__desc">Post, share, and engage on social media to earn points that convert into real rewards. Your voice has value here.</p>
                                 <div class="perk-card__tag">ACTIVE</div>
                             </div>
                         </div>
@@ -310,7 +311,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="perk-card__title">Loyalty Program</h3>
-                                <p class="perk-card__desc">Every 1,000 USDT spent gets you a lottery ticket for an AirBond. Stay loyal, win big.</p>
+                                <p class="perk-card__desc">Every 1,000 USDT you spend earns a lottery ticket for an AirBond — a free Bond drop distributed to loyal members. Stay active, win big.</p>
                                 <div class="perk-card__tag">ACTIVE</div>
                             </div>
                         </div>
@@ -334,7 +335,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="perk-card__title">More Coming</h3>
-                                <p class="perk-card__desc">The club is expanding. New perks, new features, new reasons to hold — stay tuned.</p>
+                                <p class="perk-card__desc">The club is expanding. New perks, new utilities, new reasons to hold — stay tuned.</p>
                                 <div class="perk-card__tag perk-card__tag--soon">COMING SOON</div>
                             </div>
                         </div>
@@ -369,25 +370,35 @@
                 <div class="container">
                     <div class="join__content">
                         <h2 class="join__title section-title">
-                            <span class="word">Ready</span> 
-                            <span class="word">to</span> 
-                            <span class="word gradient-text">Join</span>
+                            <span class="word">Ready</span>
+                            <span class="word">to</span>
+                            <span class="word accent-text">Join</span>
                             <span class="word">?</span>
                         </h2>
-                        <p class="join__text">Become an ApeClub member and unlock True-Yield, Governance, Ape2Earn, and every future perk — all in one membership.</p>
+                        <p class="join__text">Become an ApeClub member and start earning real yield, shaping the protocol, and unlocking rewards — all from one membership.</p>
+                        <div class="join__proof">
+                            <span class="join__proof-item">Built on ApeBond</span>
+                            <span class="join__proof-sep" aria-hidden="true">·</span>
+                            <span class="join__proof-item">Real USDT Yield</span>
+                            <span class="join__proof-sep" aria-hidden="true">·</span>
+                            <span class="join__proof-item">On-chain Governance</span>
+                        </div>
                         <a href="#" class="btn btn--primary btn--lg">
                             <span class="btn__text">Join ApeClub</span>
                             <span class="btn__glow"></span>
                         </a>
                         <div class="join__socials">
                             <a href="#" class="social-link" aria-label="Twitter / X" target="_blank" rel="noopener noreferrer">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                <span class="sr-only">Twitter / X</span>
                             </a>
                             <a href="#" class="social-link" aria-label="Discord" target="_blank" rel="noopener noreferrer">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.947 2.418-2.157 2.418z"/></svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.947 2.418-2.157 2.418z"/></svg>
+                                <span class="sr-only">Discord</span>
                             </a>
                             <a href="#" class="social-link" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                                <span class="sr-only">Telegram</span>
                             </a>
                         </div>
                     </div>
@@ -418,18 +429,17 @@
     <!-- SCRIPTS -->
     <!-- ============================================ -->
     <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- GSAP + ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <!-- Lenis Smooth Scroll -->
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script defer src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 
     <!-- App Scripts -->
-    <script src="js/three-scene.js"></script>
-    <script src="js/chroma-key.js"></script>
-
-    <script src="js/animations.js"></script>
-    <script src="js/main.js"></script>
+    <script defer src="js/three-scene.js"></script>
+    <script defer src="js/chroma-key.js"></script>
+    <script defer src="js/animations.js"></script>
+    <script defer src="js/main.js"></script>
 </body>
 </html>

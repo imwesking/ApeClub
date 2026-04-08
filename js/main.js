@@ -40,18 +40,66 @@
 
         if (!hamburger || !mobileMenu) return;
 
+        const FOCUSABLE = 'a[href], button, [tabindex]:not([tabindex="-1"])';
+
+        function openMenu() {
+            hamburger.classList.add('is-active');
+            mobileMenu.classList.add('is-open');
+            hamburger.setAttribute('aria-expanded', 'true');
+            mobileMenu.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            const firstFocusable = mobileMenu.querySelector(FOCUSABLE);
+            if (firstFocusable) firstFocusable.focus();
+        }
+
+        function closeMenu() {
+            hamburger.classList.remove('is-active');
+            mobileMenu.classList.remove('is-open');
+            hamburger.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
         hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('is-active');
-            mobileMenu.classList.toggle('is-open');
-            document.body.style.overflow = mobileMenu.classList.contains('is-open') ? 'hidden' : '';
+            const isOpen = mobileMenu.classList.contains('is-open');
+            if (isOpen) {
+                closeMenu();
+                hamburger.focus();
+            } else {
+                openMenu();
+            }
+        });
+
+        // Focus trap + Escape
+        mobileMenu.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMenu();
+                hamburger.focus();
+                return;
+            }
+            if (e.key !== 'Tab') return;
+
+            const focusable = Array.from(mobileMenu.querySelectorAll(FOCUSABLE));
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
         });
 
         // Close on link click
         mobileMenu.querySelectorAll('.mobile-menu__link').forEach(link => {
             link.addEventListener('click', () => {
-                hamburger.classList.remove('is-active');
-                mobileMenu.classList.remove('is-open');
-                document.body.style.overflow = '';
+                closeMenu();
             });
         });
     }
@@ -88,18 +136,16 @@
 
         const hide = () => {
             loader.classList.add('is-hidden');
-            // Remove from DOM after transition
             setTimeout(() => {
                 loader.style.display = 'none';
             }, 600);
         };
 
-        // Wait for all critical assets
         if (document.readyState === 'complete') {
-            setTimeout(hide, 800);
+            setTimeout(hide, 400);
         } else {
             window.addEventListener('load', () => {
-                setTimeout(hide, 800);
+                setTimeout(hide, 400);
             });
         }
     }
@@ -113,7 +159,9 @@
         document.querySelectorAll('.glitch').forEach(el => {
             const original = el.getAttribute('data-text');
 
-            // Periodically scramble
+            // Set static aria-label so screen readers always get the real text
+            el.setAttribute('aria-label', original);
+
             let interval = null;
 
             const scramble = () => {
@@ -121,6 +169,9 @@
                 const maxIterations = original.length;
 
                 if (interval) clearInterval(interval);
+
+                // Hide from AT during scramble
+                el.setAttribute('aria-hidden', 'true');
 
                 interval = setInterval(() => {
                     el.textContent = original
@@ -136,12 +187,13 @@
 
                     if (iterations >= maxIterations) {
                         clearInterval(interval);
+                        interval = null;
                         el.textContent = original;
+                        el.removeAttribute('aria-hidden');
                     }
                 }, 40);
             };
 
-            // Trigger on scroll into view
             ScrollTrigger.create({
                 trigger: el,
                 start: 'top 80%',
@@ -160,22 +212,17 @@
         initMobileNav();
         initAnchorLinks();
 
-        // Initialize modules
         ApeScene.init();
         ApeChromaKey.init();
         ApeAnimations.init();
-        // Cursor removed — using default browser cursor
 
-        // Glitch text (needs ScrollTrigger to be ready)
         initGlitchText();
 
-        // Refresh ScrollTrigger after everything loads
         window.addEventListener('load', () => {
             ScrollTrigger.refresh();
         });
     }
 
-    // DOM Ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', boot);
     } else {

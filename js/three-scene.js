@@ -9,10 +9,21 @@ const ApeScene = (() => {
     let isMobile = false;
     let isReducedMotion = false;
     let animationId = null;
+    let cssColors = { purple: '#9b4dff', pink: '#ff2d95', cyan: '#00f0ff', bg: '#170C20' };
 
     const PARTICLE_COUNT_DESKTOP = 4000;
     const PARTICLE_COUNT_MOBILE = 1200;
     const SPHERE_RADIUS = 6;
+
+    function readCSSColors() {
+        const s = getComputedStyle(document.documentElement);
+        cssColors = {
+            purple: s.getPropertyValue('--accent-purple').trim() || '#9b4dff',
+            pink:   s.getPropertyValue('--accent-pink').trim()   || '#ff2d95',
+            cyan:   s.getPropertyValue('--accent-cyan').trim()   || '#00f0ff',
+            bg:     s.getPropertyValue('--bg-primary').trim()    || '#170C20'
+        };
+    }
 
     function init() {
         isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -22,9 +33,11 @@ const ApeScene = (() => {
         const canvas = document.getElementById('three-canvas');
         if (!canvas) return;
 
+        readCSSColors();
+
         // Scene
         scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x170C20, 0.06);
+        scene.fog = new THREE.FogExp2(new THREE.Color(cssColors.bg), 0.06);
 
         // Camera
         camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -56,10 +69,10 @@ const ApeScene = (() => {
         const colors = new Float32Array(count * 3);
         const sizes = new Float32Array(count);
 
-        // Colors
-        const purple = new THREE.Color(0x9b4dff);
-        const pink = new THREE.Color(0xff2d95);
-        const cyan = new THREE.Color(0x00f0ff);
+        // Colors from CSS tokens
+        const purple = new THREE.Color(cssColors.purple);
+        const pink = new THREE.Color(cssColors.pink);
+        const cyan = new THREE.Color(cssColors.cyan);
 
         for (let i = 0; i < count; i++) {
             const i3 = i * 3;
@@ -149,7 +162,7 @@ const ApeScene = (() => {
         // Icosahedron wireframe
         const geo = new THREE.IcosahedronGeometry(2.8, 1);
         const mat = new THREE.MeshBasicMaterial({
-            color: 0x9b4dff,
+            color: new THREE.Color(cssColors.purple),
             wireframe: true,
             transparent: true,
             opacity: 0.05
@@ -201,6 +214,18 @@ const ApeScene = (() => {
     function addEventListeners() {
         window.addEventListener('resize', onResize);
         window.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('visibilitychange', onVisibilityChange);
+    }
+
+    function onVisibilityChange() {
+        if (document.hidden) {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+        } else if (!isReducedMotion && renderer) {
+            animate();
+        }
     }
 
     function onResize() {
@@ -224,6 +249,7 @@ const ApeScene = (() => {
         if (animationId) cancelAnimationFrame(animationId);
         window.removeEventListener('resize', onResize);
         window.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('visibilitychange', onVisibilityChange);
         if (renderer) renderer.dispose();
     }
 
