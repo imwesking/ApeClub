@@ -212,7 +212,6 @@
         initMobileNav();
         initAnchorLinks();
 
-        ApeScene.init();
         ApeChromaKey.init();
         ApeAnimations.init();
 
